@@ -6,6 +6,37 @@
 	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
       <link href="css/bootstrap.min.css" rel="stylesheet">
 	  <link href="css/site.min.css" rel="stylesheet">
+	  <style type="text/css">
+	      .index_content_title{
+		      border-bottom:2px solid #e5311a;
+			  padding:0 0 5px 6px;
+			  font-weight:bold;
+			  margin:10px 2px;
+		  }
+	      .highlight{
+              padding:2px 2px;
+			  border-radius:5px;
+			  transition-duration:0.3s;
+			  transition-property:box-shadow;
+			  transform:translateZ(0);
+		  }
+	      .highlight:hover{
+              box-shadow:0 0 8px rgba(0, 0, 0, 0.6);
+			  background:#F5F8FA;
+		  }
+		  
+		  .index_content li{
+		      color:#8e99a0;
+			  overflow:hidden;
+		  }
+		  
+		  .index_content ul{
+              list-style:none outside;
+			  text-decoration:none;
+			  padding:0px;
+		  }	    
+		  
+      </style>
    </head>
    <body>
 <div class="container">
@@ -27,7 +58,7 @@
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown">公司简介<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
 								<li>
-									 <a href="#">企业理念</a>
+									 <a href="second_level.html">企业理念</a>
 								</li>
 								<li>
 									 <a href="#">组织结构</a>
@@ -96,23 +127,27 @@
 		</div>
 	</div>
 	<div class="row clearfix">
-		<div class="col-md-4 column">
-			<h2>
+		<div class="col-md-4 column index_content">
+			<h3 class="index_content_title">
 				我们的优势
 			</h2>
+			<div class="highlight">
+                <ul>
+                    <li>◇ 最短时间内提供最有效快速的考试成绩 英国教育水准高，云集世界顶级院校，文凭获国际认可！</li>
+                    <li>◇ 留学性价比高，3年完成学士学位课程，1年完成硕士学位课程。</li>
+                    <li>◇ 留学生福利完善，留学签证超半年即可享政府提供的免费医疗。</li>
+                    <li>◇ 英语发源地，领略英伦文化，培养绅士/淑女气质。</li>
+                </ul>
 			<p>
-
-
-                是专业办理枫叶卡，留学签证及国际商务咨询等业务的出国咨询机构。
+				 <a class="btn" href="#">更多 »</a>
 			</p>
-			<p>
-				 <a class="btn" href="#">View details »</a>
-			</p>
+			</div>
 		</div>
 		<div class="col-md-4 column">
-			<h2>
+			<h3 class="index_content_title">
 				成功案例
 			</h2>
+			<div class="index_sub_content highlight">
 			<p>
 				2016-11-10 最新加入加拿大
 			</p>
@@ -122,11 +157,13 @@
 			<p>
 				 <a class="btn" href="#">View details »</a>
 			</p>
+			</div>
 		</div>
 		<div class="col-md-4 column">
-			<h2>
+			<h3 class="index_content_title">
 				热点新闻
 			</h2>
+			<div class="index_sub_content highlight">
 			<p>
 				<ul>
 				    <li>加拿大最新热闻 </li>
@@ -134,8 +171,9 @@
 				</ul>
 			</p>
 			<p>
-				 <a class="btn" href="#">View details »</a>
+				 <a class="btn" href="news_page.html">更多 »</a>
 			</p>
+			</div>
 		</div>
 	</div>
 </div>		
@@ -153,7 +191,7 @@
                         <a href="http://www.golaravel.com/" title="加拿大留学链接2" onclick="_hmt.push(['_trackEvent', 'link', 'click', 'Laravel中文网'])" target="_blank">加拿大留学链接2</a>
                     </div>
                 </div>
-            </div>
+</div>
 
 	<div class="col-sm-4">
                 <div class="widget">
