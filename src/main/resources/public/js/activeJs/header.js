@@ -1,0 +1,1 @@
+var header = '{"logo":"加拿大留学移民","nav":[{"item_id":1,"item_name":"首页","url":"index_ver1.html","item_type":"single","parent_item":null},{"item_id="4",""item_name":"企业理念","url":"second_level.html","item_type":"single","parent_item":"2"},{"item_id="2",""item_name":"公司简介","url":null,"item_type":"multiple","parent_item":null}]}'

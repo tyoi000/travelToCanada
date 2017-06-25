@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>加拿大留学移民后台管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/site.min.css" rel="stylesheet"/>
+	<link href="js/dataTable/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <style type="text/css">
+	      .index_content_title{
+		      border-bottom:2px solid #e5311a;
+			  padding:0 0 5px 6px;
+			  font-weight:bold;
+			  margin:10px 2px;
+		  }
+	      .highlight{
+              padding:2px 2px;
+			  border-radius:5px;
+			  transition-duration:0.3s;
+			  transition-property:box-shadow;
+			  transform:translateZ(0);
+		  }
+	      .highlight:hover{
+              box-shadow:0 0 8px rgba(0, 0, 0, 0.6);
+			  background:#F5F8FA;
+		  }
+		  
+		  .index_content li{
+		      color:#8e99a0;
+			  overflow:hidden;
+		  }
+		  
+		  .index_content ul{
+              list-style:none outside;
+			  text-decoration:none;
+			  padding:0px;
+		  }	    
+		  
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+	    <a class="navbar-brand" href="#">Brand</a>
+	    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
+	</div>
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation"><a href="#">UI 设计</a></li>
+                <li role="presentation"><a href="#">页面节点</a></li>
+                <li role="presentation"><a href="#">页面内容</a></li>
+				<li role="presentation" class="active"><a href="#" id="newsEdit" >新闻管理</a></li>
+				<li role="presentation"><a href="#">表单管理</a></li>
+				<li role="presentation"><a href="#">Dashboard</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10 column">
+		    <p>
+			    <button type="button" class="btn btn-primary btn-lg" id="addNews" data-toggle="modal" data-target="#newsEditArea">
+				    <span class="glyphicon glyphicon-plus-sign"><span> &nbsp;News
+				</button>
+		    </p>
+		    <table id="articleTable" width="100%">
+			<thead>
+			    <tr>
+				    <th>文章标题</th>
+					<th>简介</th>
+					<th>pulish time</th>
+					<th>Author</th>
+					<th>Operations</th>
+				</tr>
+				</thead>
+			</table>
+        </div>
+    </div>
+</div>
+<div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <span>Copyright © <a href="http://expo.bootcss.com">Celadon</a></span> |
+                <span><a href="http://www.miibeian.gov.cn/" target="_blank">青瓷</a></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" tabindex="-1" role="dialog" id="newsEditArea">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">新闻内容编辑</h4>
+      </div>
+      <div class="modal-body">
+        <form id="myForm">
+          <div class="form-group">
+            <label for="news_title" class="control-label">新闻标题:</label>
+            <input type="text" class="form-control" id="news_title">
+          </div>
+          <div class="form-group">
+            <label for="news_auhtor" class="control-label">发布者:</label>
+            <textarea class="form-control" id="news_author"></textarea>
+          </div>		  
+          <div class="form-group">
+            <label for="news_introduction" class="control-label">引言/简介:</label>
+            <textarea class="form-control" id="news_introduction"></textarea>
+          </div>
+		  
+          <div class="form-group">
+            <label for="news_content" class="control-label">内容:</label>
+            <textarea class="form-control" id="news_content"></textarea>
+          </div>
+          <input type="reset" name="reset" style="display: none;" />		  
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveArticle">Save changes</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div>
+<!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- 包括所有已编译的插件 -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/dataTable/js/jquery.dataTables.min.js"></script>
+<script src="js/jquery.serializejson.min.js"></script>
+<script>
+var dataTableInitialized = false;
+var dataTableObj;
+$(document).ready(function(){
+   refreshTable();
+});
+
+function refreshTable(){
+    if (dataTableInitialized == true){
+	    dataTableObj.fnClearTable();
+		dataTableObj.fnDestroy();
+	}
+    $.get("/travelToCanada/news/",function(data, status){
+	    var tableContent = new Array();
+	    $.each(data,function(index){
+		    tableContent[index] = new Array();
+		    tableContent[index][0] = this.title;
+			tableContent[index][1] = this.introduction;
+			tableContent[index][2] = this.publishTime;
+			tableContent[index][3] = this.author;
+			tableContent[index][4] = '<button id="edit' + this.id +'">edit</button><button id="remove' + this.id+'">remove</button>';
+		});
+
+        dataTableObj = $('#articleTable').dataTable({
+	        data : tableContent
+	    });
+		
+		dataTableInitialized = true;
+    });    
+}
+
+$('#newsEditArea').on('shown.bs.modal', function () {
+  //$('#myInput').focus()
+})
+
+
+$('#saveArticle').click(function(){
+    var newsData = {};
+	newsData["title"]=$("#news_title")[0].value;
+	newsData["author"]=$("#news_author")[0].value;
+	newsData["content"]=$("#news_content")[0].value;
+	newsData["introduction"]=$("#news_introduction")[0].value;
+	var jsonStr = JSON.stringify(newsData);
+	//alert($('#myForm').serializeJSON());
+  $.ajax({
+	cache: true,
+	type: "POST",
+	contentType: "application/json",
+	url:"/travelToCanada/news/add",
+	data:jsonStr,// 你的formid
+	async: false,
+	error: function(request) {
+		alert("Connection error");
+	},
+	success: function(data) {
+		alert(" 添加成功啦！ ");
+		$('#newsEditArea').modal('hide');
+		$("input[type=reset]").trigger("click");
+		refreshTable();
+		
+	}
+  });    
+
+});
+
+</script>
+</body>
+</html>
