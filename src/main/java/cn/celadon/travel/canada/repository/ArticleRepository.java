@@ -1,6 +1,6 @@
 package cn.celadon.travel.canada.repository;
 
-import cn.celadon.travel.canada.domin.Article;
+import cn.celadon.travel.canada.domin.dynamicDataModules.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

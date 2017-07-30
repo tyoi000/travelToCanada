@@ -16,8 +16,9 @@
                 <div class="col-md-12 column">
                     <ol class="breadcrumb">
                         <li>现在的位置 ：</li>
-                        <li><a href="index.html">首页</a></li>
-                        <li><a href="#">新闻热点</a></li>
+                        <#list visitPaths as visitPath>
+                            <li><a href="${visitPath.html}">${visitPath.displayName}</a></li>
+                        </#list>
                         <li class="active">${article.title}</li>
                     </ol>
                 </div>
@@ -28,20 +29,16 @@
         </div>
         <div class="col-md-11 column">
             <div class="newsInfo_bar">
-                <span>${article.publishTime}</span>
+                <span>${article.publishTime?date}</span>
                 <span>编辑：${article.author}</span>
                 <span>来源：加拿大留学移民</span>
-                <span>点击：${article.clickCount}</span>
             </div>
             <div class="page-header bg-info">
                 <h3>${article.title}
                     <small>${article.introduction}</small>
                 </h3>
             </div>
-            <p class="lead">加拿大不再是一个遥远的梦了</p>
             <div style="display:block">
-                <img style="float:left;padding:20px 20px 20px 20px;" src="image/city.jpg" alt="..." class="img-circle"
-                     width="200px" height="200px">
                 ${article.content}
             </div>
         </div>
@@ -55,6 +52,7 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <!-- 包括所有已编译的插件 -->
 <script src="js/bootstrap.min.js"></script>
+<script src="js/activeJs/header.js"></script>
 <script src="js/activeJs/loadTemplate.js"></script>
 <script>
     loadHeader("navigator");

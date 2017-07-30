@@ -11,5 +11,5 @@ import java.util.List;
 public interface IStaticPageGenerator {
     public void generateSinglePage(String pageTemplate, Object pageContent, String fileStoragePath) throws Exception;
     public void generateListSummarySinglePage(String pageTemplate, List<Object> pageContent, String fileStoragePath) throws Exception;
-
+    public void generateJsFile(String pageTemplate, Object pageContent, String fileStoragePath) throws Exception;
 }

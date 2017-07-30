@@ -1,13 +1,17 @@
 package cn.celadon.travel.canada.service.Impl;
 
 import cn.celadon.travel.canada.Util.exception.EntityNotFoundInDBException;
-import cn.celadon.travel.canada.domin.Article;
+import cn.celadon.travel.canada.annotations.DynamicWebEntity;
+import cn.celadon.travel.canada.domin.dynamicDataModules.Article;
+import cn.celadon.travel.canada.domin.IWebModuleRegister;
 import cn.celadon.travel.canada.repository.ArticleRepository;
 import cn.celadon.travel.canada.service.IArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.Date;
 import java.util.List;
 
@@ -16,12 +20,14 @@ import java.util.List;
  */
 @Service
 @Transactional
-public class ArticleServiceImpl implements IArticleService {
+@Component
+    public class ArticleServiceImpl implements IArticleService {
 
     @Autowired
     private ArticleRepository articleRepository;
 
     @Override
+    @DynamicWebEntity(summaryHtmlPage = "articleSummary",templateName="article.ftl", recordNamingStrategy = "article-{0}")
     public List<Article> findAll() {
         return articleRepository.findAll();
 
@@ -29,6 +35,8 @@ public class ArticleServiceImpl implements IArticleService {
 
     @Override
     public void save(Article article) {
+
+        article.setPublishTime(new Date());
         articleRepository.save(article);
     }
 
@@ -56,5 +64,11 @@ public class ArticleServiceImpl implements IArticleService {
     public Article getArticleById(String id) {
         Article article = articleRepository.findById(Long.getLong(id)).get();
         return article;
+    }
+
+    @PostConstruct
+    @Override
+    public void register() {
+        IWebModuleRegister.webModules.put("article",this);
     }
 }

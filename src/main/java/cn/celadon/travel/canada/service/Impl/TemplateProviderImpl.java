@@ -23,6 +23,7 @@ public class TemplateProviderImpl implements ITemplateProvider {
 
     @Override
     public Template loadTemplate(String templateName) throws IOException {
+        configuration.setDateFormat("yyyy-MM-dd");
         return configuration.getTemplate(templateName);
     }
 

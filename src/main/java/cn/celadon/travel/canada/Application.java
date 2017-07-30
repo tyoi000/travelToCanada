@@ -1,21 +1,17 @@
 package cn.celadon.travel.canada;
 
-import cn.celadon.travel.canada.domin.Article;
+import cn.celadon.travel.canada.service.IAchievementService;
 import cn.celadon.travel.canada.service.IArticleService;
-import cn.celadon.travel.canada.service.IStaticPageGenerator;
+import cn.celadon.travel.canada.service.ISchoolInformationService;
+import cn.celadon.travel.canada.service.IWebPageGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.util.ResourceUtils;
 
 import javax.annotation.PostConstruct;
-import java.io.File;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Created by empqqty on 5/11/2017.
@@ -25,13 +21,19 @@ import java.util.Map;
 public class Application extends SpringBootServletInitializer {
 
     @Value("${static.page.output.path}")
-    private  String storagePath = "/";
+    private String storagePath = "/";
 
     @Autowired
-    private  IStaticPageGenerator staticPageGenerator;
+    private IWebPageGenerator pageGenerator;
 
     @Autowired
     private IArticleService articleService;
+
+    @Autowired
+    private ISchoolInformationService schoolInformationService;
+
+    @Autowired
+    private IAchievementService achievementService;
 
     public static void main(String[] args){
         SpringApplication.run(Application.class, args);
@@ -39,21 +41,6 @@ public class Application extends SpringBootServletInitializer {
 
     @PostConstruct
     public void init(){
-        try {
-            storagePath = ResourceUtils.getURL(storagePath).getPath();
-            List<Article> articles = articleService.findAll();
-            for (Article article : articles){
-                Map mapList = new HashMap();
-                mapList.put("webTitle","飞跃加拿大");
-                mapList.put("article",article);
-                String filePath = storagePath +"/" + article.getId() + ".html";
-                File file = new File(filePath);
-                file.createNewFile();
-                staticPageGenerator.generateSinglePage("article.ftl",mapList,filePath);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        pageGenerator.generateAllAvailableWebPages();
     }
-
 }

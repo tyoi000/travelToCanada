@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link href="css/bootstrap.min.css" rel="stylesheet"/>
     <link href="css/site.min.css" rel="stylesheet"/>
-	<link href="js/dataTable/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <link href="js/dataTable/css/jquery.dataTables.min.css" rel="stylesheet"/>
     <style type="text/css">
 	      .index_content_title{
 		      border-bottom:2px solid #e5311a;
@@ -25,55 +25,143 @@
               box-shadow:0 0 8px rgba(0, 0, 0, 0.6);
 			  background:#F5F8FA;
 		  }
-		  
+
 		  .index_content li{
 		      color:#8e99a0;
 			  overflow:hidden;
 		  }
-		  
+
 		  .index_content ul{
               list-style:none outside;
 			  text-decoration:none;
 			  padding:0px;
-		  }	    
-		  
+		  }
+
 
     </style>
 </head>
 <body>
 <div class="container">
     <div class="row clearfix">
-	    <a class="navbar-brand" href="#">Brand</a>
-	    <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
-	</div>
+        <a class="navbar-brand" href="#">加拿大移民留学</a>
+        <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Admin</a>&nbsp;<a href="/travelToCanada/logout">退出系统</a></p>
+    </div>
     <div class="row clearfix">
         <div class="col-md-2 column">
             <ul class="nav nav-pills nav-stacked">
-                <li role="presentation"><a href="#">UI 设计</a></li>
-                <li role="presentation"><a href="#">页面节点</a></li>
-                <li role="presentation"><a href="#">页面内容</a></li>
-				<li role="presentation" class="active"><a href="#" id="newsEdit" >新闻管理</a></li>
-				<li role="presentation"><a href="#">表单管理</a></li>
-				<li role="presentation"><a href="#">Dashboard</a></li>
+                <li role="presentation" class="active"><a href="#" id="webNodeEdit" class="tabChange">页面节点</a></li>
+                <li role="presentation"><a href="#" id="pageContentEdit" class="tabChange">页面内容</a></li>
+                <li role="presentation"><a href="#" id="newsEdit" class="tabChange">新闻管理</a></li>
+                <li role="presentation"><a href="#" id="schoolInfoEdit" class="tabChange">学校信息</a></li>
+                <li role="presentation"><a href="#" id="achievementEdit" class="tabChange">成功案例</a></li>
+                <!--<li role="presentation"><a href="#" id="formEdit" class="tabChange">表单管理（to be update）</a></li>
+                <li role="presentation"><a href="#" id="uiDesignEdit" class="tabChange">UI 设计</a></li>
+				<li role="presentation"><a href="#" id="dashboardEdit">Dashboard(to be update)</a></li>-->
             </ul>
         </div>
         <div class="col-md-10 column">
-		    <p>
-			    <button type="button" class="btn btn-primary btn-lg" id="addNews" data-toggle="modal" data-target="#newsEditArea">
-				    <span class="glyphicon glyphicon-plus-sign"><span> &nbsp;News
-				</button>
-		    </p>
-		    <table id="articleTable" width="100%">
-			<thead>
-			    <tr>
-				    <th>文章标题</th>
-					<th>简介</th>
-					<th>pulish time</th>
-					<th>Author</th>
-					<th>Operations</th>
-				</tr>
-				</thead>
-			</table>
+            <div id="newsEditTable" style="display:none">
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button" href="pageEditPage.html?currentArea=newsEdit">
+				    <span class="glyphicon glyphicon-plus-sign"><span> &nbsp;新闻
+                    </a>
+                </p>
+                <table id="articleTable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>文章标题</th>
+                        <th>简介</th>
+                        <th>发表时间</th>
+                        <th>作者</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="schoolInfoEditTable" style="display:none">
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button" href="pageEditPage.html?currentArea=schoolInfoEdit">
+				    <span class="glyphicon glyphicon-plus-sign"><span> &nbsp;加拿大高校信息
+                    </a>
+                </p>
+                <table id="schoolInfoTable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>学校名称</th>
+                        <th>简介</th>
+                        <th>主要内容</th>
+                        <th>排名</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="achievementEditTable" style="display:none">
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button" href="pageEditPage.html?currentArea=achievementEdit">
+				    <span class="glyphicon glyphicon-plus-sign"><span> &nbsp;成功案例
+                    </a>
+                </p>
+                <table id="achievementTable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>案例名称</th>
+                        <th>简介</th>
+                        <th>主要内容</th>
+                        <th>分类</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+
+            <div  id="webNodeEditTable">
+                <p>
+                    <button type="button" class="btn btn-primary btn-lg" id="addWebNode" data-toggle="modal" data-target="#webNodeEditArea">
+				    <span class="glyphicon glyphicon-plus-sign"><span> &nbsp;导航栏节点
+                    </button>
+                </p>
+                <p>
+                <hr/>
+                <button type="button" class="btn btn-primary btn-lg" id="reloadProject">
+				    <span class="glyphicon glyphicon-exclamation-sign"><span> &nbsp;重新生成网页
+                </button>
+                <br/>
+                当所有的改动全部完成的时候可以点击该按钮，后台将会根据您的最新改动生成新的网页，之前的网页将会被全部覆盖，	请慎重点击该按钮！！
+                <hr/>
+                </p>
+                <table id="NodeTable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>栏目名称</th>
+                        <th>栏目级别</th>
+                        <th>栏目链接页</th>
+                        <th>栏目父节点</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div id="pageContentEditTable" style="display:none">
+                <p>
+                    <a class="btn btn-primary btn-lg" role="button" href="pageEditPage.html?currentArea=pageContentEdit">
+				    <span class="glyphicon glyphicon-plus-sign"><span> &nbsp;网页
+                    </a>
+                </p>
+                <table id="pageTable" width="100%">
+                    <thead>
+                    <tr>
+                        <th>网页名称</th>
+                        <th>网页链接</th>
+                        <th>网页模板</th>
+                        <th>固定内容</th>
+                        <th>固定名称</th>
+                        <th>动态模块</th>
+                        <th>操作</th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 </div>
@@ -87,56 +175,184 @@
         </div>
     </div>
 </div>
-<div class="modal fade" tabindex="-1" role="dialog" id="newsEditArea">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title">新闻内容编辑</h4>
-      </div>
-      <div class="modal-body">
-        <form id="myForm">
-          <div class="form-group">
-            <label for="news_title" class="control-label">新闻标题:</label>
-            <input type="text" class="form-control" id="news_title">
-          </div>
-          <div class="form-group">
-            <label for="news_auhtor" class="control-label">发布者:</label>
-            <textarea class="form-control" id="news_author"></textarea>
-          </div>		  
-          <div class="form-group">
-            <label for="news_introduction" class="control-label">引言/简介:</label>
-            <textarea class="form-control" id="news_introduction"></textarea>
-          </div>
-		  
-          <div class="form-group">
-            <label for="news_content" class="control-label">内容:</label>
-            <textarea class="form-control" id="news_content"></textarea>
-          </div>
-          <input type="reset" name="reset" style="display: none;" />		  
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="saveArticle">Save changes</button>
-      </div>
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
+<div class="modal fade" tabindex="-1" role="dialog" id="webNodeEditArea">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">导航栏栏目编辑</h4>
+            </div>
+            <div class="modal-body">
+                <form id="myForm">
+                    <div class="form-group">
+                        <label for="node_name" class="control-label">栏目名称(字数不得超过4个):</label>
+                        <input type="text" class="form-control" id="node_name">
+                    </div>
+                    <div class="form-group">
+                        <label for="parent_node" class="control-label">上级栏目:</label>
+                        <select type="text" class="form-control" id="parent_node"/>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="link_page" class="control-label">链接网页（页面不可重复链接）:</label>
+                        <select type="text" class="form-control" id="link_page">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="display_order" class="control-label">显示顺序（仅为数字）:</label>
+                        <input type="text" class="form-control" id="display_order"/>
+                    </div>
+                    <input type="reset" name="reset" style="display: none;" />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveNode">Save changes</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
+<div class="modal fade" tabindex="-1" role="dialog" id="dataRemoveArea">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="removeTitle"></h4>
+            </div>
+            <div class="modal-body">
+                <p id="removeContent" class="text-danger"></p>
+                <input type="hidden" id="removeId" value=''/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmRemove">confirm</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
-<script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery.js"></script>
 <!-- 包括所有已编译的插件 -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/dataTable/js/jquery.dataTables.min.js"></script>
 <script src="js/jquery.serializejson.min.js"></script>
+<script src="js/ckeditor/ckeditor.js"></script>
 <script>
+var webPageList;
+var webNodeList;
+
 var dataTableInitialized = false;
 var dataTableObj;
+
+var webNodeDataTableInitialized = false;
+var webNodeDataTableObj;
+
+var pageDataTableInitialized = false;
+var pageDataTableObj;
+
+var schoolInfoDataTableInitialized = false;
+var schoolInfoDataTableObj;
+
+var achievementDataTableInitialized = false;
+var achievementDataTableObj;
+
+
+var currentEditArea = "";
 $(document).ready(function(){
+   currentEditArea = GetQueryString('currentArea');
+   if (currentEditArea == "") {
+       currentEditArea = "webNodeEdit";
+   }
+
    refreshTable();
+   tabChnageOnClick();
+   removeConfirm();
+   reloadClick();
 });
 
+
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return "";
+}
+
+
 function refreshTable(){
+   if (currentEditArea == "newsEdit"){
+       refreshArticleTable();
+   } else if (currentEditArea == "webNodeEdit"){
+       refreshWebNodeTable();
+   } else if (currentEditArea == "pageContentEdit"){
+       refreshPageTable();
+   } else if (currentEditArea == "schoolInfoEdit"){
+       refreshSchoolInfoTable();
+   } else if (currentEditArea == "achievementEdit"){
+       refreshAchievementTable();
+	}
+}
+
+
+function refreshSchoolInfoTable(){
+
+    if (schoolInfoDataTableInitialized == true){
+	    schoolInfoDataTableObj.fnClearTable();
+		schoolInfoDataTableObj.fnDestroy();
+	}
+    $.get("/travelToCanada/schoolInfo/",function(data, status){
+	    var tableContent = new Array();
+	    $.each(data,function(index){
+		    tableContent[index] = new Array();
+		    tableContent[index][0] = this.title;
+			tableContent[index][1] = this.introduction;
+			tableContent[index][2] = "-";
+			tableContent[index][3] = "位居" + this.ranking + '位';
+			tableContent[index][4] = '<button class="contentChange" id="schoolInfoEdit_edit_' + this.id +'">edit</button><button class="contentChange" id="schoolInfoEdit_remove_' + this.id+'">remove</button>';
+		});
+
+        dataTableObj = $('#schoolInfoTable').dataTable({
+	        data : tableContent
+	    });
+
+		schoolInfoDataTableInitialized = true;
+		entityChangeTrigger();
+    });
+
+}
+
+function refreshAchievementTable(){
+
+    if (achievementDataTableInitialized == true){
+	    achievementDataTableObj.fnClearTable();
+		achievementDataTableObj.fnDestroy();
+	}
+    $.get("/travelToCanada/achievement/",function(data, status){
+	    var tableContent = new Array();
+	    $.each(data,function(index){
+		    tableContent[index] = new Array();
+		    tableContent[index][0] = this.title;
+			tableContent[index][1] = this.introduction;
+			tableContent[index][2] = "-";
+			tableContent[index][3] = this.businessArea;
+			tableContent[index][4] = '<button class="contentChange" id="newsEdit_edit_' + this.id +'">edit</button><button class="contentChange" id="newsEdit_remove_' + this.id+'">remove</button>';
+		});
+
+        achievementDataTableObj = $('#achievementTable').dataTable({
+	        data : tableContent
+	    });
+
+		achievementDataTableInitialized = true;
+		entityChangeTrigger();
+    });
+
+}
+
+
+function refreshArticleTable(){
+
     if (dataTableInitialized == true){
 	    dataTableObj.fnClearTable();
 		dataTableObj.fnDestroy();
@@ -149,35 +365,159 @@ function refreshTable(){
 			tableContent[index][1] = this.introduction;
 			tableContent[index][2] = this.publishTime;
 			tableContent[index][3] = this.author;
-			tableContent[index][4] = '<button id="edit' + this.id +'">edit</button><button id="remove' + this.id+'">remove</button>';
+			tableContent[index][4] = '<button class="contentChange" id="newsEdit_edit_' + this.id +'">edit</button><button class="contentChange" id="newsEdit_remove_' + this.id+'">remove</button>';
 		});
 
         dataTableObj = $('#articleTable').dataTable({
 	        data : tableContent
 	    });
-		
+
 		dataTableInitialized = true;
-    });    
+		entityChangeTrigger();
+    });
+
+}
+
+function refreshWebNodeTable(){
+    if (webNodeDataTableInitialized == true){
+	    webNodeDataTableObj.fnClearTable();
+		webNodeDataTableObj.fnDestroy();
+	}
+    $.get("/travelToCanada/webNodes/",function(data, status){
+	    webNodeList = new Array();
+		var firstLevelNodeIndex=0;
+	    var tableContent = new Array();
+	    $.each(data,function(index){
+		    tableContent[index] = new Array();
+		    tableContent[index][0] = this.displayName;
+		    if ( this.parentNode == null ){
+		        tableContent[index][1] = "一级目录"
+				tableContent[index][3] = "-";
+				webNodeList[firstLevelNodeIndex]=this;
+				firstLevelNodeIndex = firstLevelNodeIndex +1;
+		    } else {
+		        tableContent[index][1] = "二级目录"
+				tableContent[index][3] = this.parentNode.displayName;
+		    }
+
+			if (this.webPage == null){
+			    tableContent[index][2]='-';
+			} else {
+			    tableContent[index][2] = this.webPage.name;
+			}
+
+
+			tableContent[index][4] = '<button class="contentChange" id="webNodeEdit_edit_' + this.id +'">edit</button><button class="contentChange" id="webNodeEdit_remove_' + this.id+'">remove</button>';
+		});
+
+        webNodeDataTableObj = $('#NodeTable').dataTable({
+	        data : tableContent
+	    });
+
+		webNodeDataTableInitialized = true;
+		initParentNodeSelect();
+		getAllPageInfo();
+		entityChangeTrigger();
+    });
+}
+
+function refreshPageTable(){
+    if (pageDataTableInitialized == true){
+	    pageDataTableObj.fnClearTable();
+		pageDataTableObj.fnDestroy();
+	}
+
+    $.get("/travelToCanada/pageModules/",function(data, status){
+		var firstLevelNodeIndex=0;
+	    var tableContent = new Array();
+	    $.each(data,function(index){
+		    tableContent[index] = new Array();
+		    tableContent[index][0] = this.name;
+		    tableContent[index][1] = this.pageInfo.pageHtmlName;
+		    tableContent[index][2] = this.pageInfo.pageTemplate;
+		    tableContent[index][3] = '<a target="_blank" href="' + this.pageInfo.pageHtmlName + '.html' + '">在新窗口中查看</a>'
+		    tableContent[index][4] = this.staticContentMappingName;
+            var dynamicModule = '-';
+            if ( this.dynamicWebContentMappingList != undefined){
+
+			   $.each(this.dynamicWebContentMappingList,function(){
+			       dynamicModule = dynamicModule + this.dynamicWebContent.dynamicEntityMapping;
+				   if ( this.dynamicWebContent.entityFilterType != null){
+				       dynamicModule = dynamicModule + ':' + this.dynamicWebContent.entityFilterType;
+				   }
+				   dynamicModule = dynamicModule + '<br/>';
+			   });
+			}
+
+            tableContent[index][5] = dynamicModule;
+			tableContent[index][6] = '<button class="contentChange" id="pageContentEdit_edit_' + this.id +'">edit</button><button class="contentChange" id="pageContentEdit_remove_' + this.id+'">remove</button>';
+		});
+
+        pageDataTableObj = $('#pageTable').dataTable({
+	        data : tableContent
+	    });
+
+		pageDataTableInitialized = true;
+		entityChangeTrigger();
+    });
+}
+
+function initParentNodeSelect(){
+    $('#parent_node').empty();
+    $('#parent_node').prepend("<option value='#'>请选择(可为空)</option>");
+    $.each(webNodeList,function(index){
+	    if ( this.displayName == "首页"){
+		    //do nothing
+		} else {
+		    $('#parent_node').append("<option value='"+index+"'>"+this.displayName+"</option>");
+		}
+
+	});
+}
+
+function initWebPageSelect(){
+    $('#link_page').empty();
+    $('#link_page').prepend("<option value='#'>请选择(可为空)</option>");
+    $.each(webPageList,function(index){
+	    if ( this.name == "首页"){
+		    //do nothing
+		} else {
+		    $('#link_page').append("<option value='"+index+"'>"+this.name+"</option>");
+		}
+
+	});
+}
+
+
+function getAllPageInfo(){
+    $.get("/travelToCanada/pageModules/",function(data, status){
+	    webPageList = data;
+		initWebPageSelect();
+	});
 }
 
 $('#newsEditArea').on('shown.bs.modal', function () {
   //$('#myInput').focus()
 })
 
-
-$('#saveArticle').click(function(){
+$('#saveNode').click(function(){
     var newsData = {};
-	newsData["title"]=$("#news_title")[0].value;
-	newsData["author"]=$("#news_author")[0].value;
-	newsData["content"]=$("#news_content")[0].value;
-	newsData["introduction"]=$("#news_introduction")[0].value;
+	newsData["displayName"]=$("#node_name")[0].value;
+	var parentNodeIndex = $('#parent_node')[0].value;
+	var webPageIndex = $('#link_page')[0].value;
+	if (parentNodeIndex != "#"){
+	    newsData["parentNode"]=webNodeList[parentNodeIndex];
+	}
+
+	if (webPageIndex != "#"){
+	    newsData["webPage"]=webPageList[webPageIndex];
+	}
 	var jsonStr = JSON.stringify(newsData);
-	//alert($('#myForm').serializeJSON());
   $.ajax({
 	cache: true,
 	type: "POST",
 	contentType: "application/json",
-	url:"/travelToCanada/news/add",
+	url:"/travelToCanada/webNodes/add",
 	data:jsonStr,// 你的formid
 	async: false,
 	error: function(request) {
@@ -185,14 +525,93 @@ $('#saveArticle').click(function(){
 	},
 	success: function(data) {
 		alert(" 添加成功啦！ ");
-		$('#newsEditArea').modal('hide');
-		$("input[type=reset]").trigger("click");
+		$('#webNodeEditArea').modal('hide');
+		$("#webNodeEditArea input[type=reset]").trigger("click");
 		refreshTable();
-		
-	}
-  });    
 
+	}
+  });
 });
+
+
+function tabChnageOnClick(){
+   $('.tabChange').click(function(){
+       var parentNode = this.parentNode;
+	   $(parentNode).addClass('active');
+	   var tabName = $(this).attr('id');
+	   if (currentEditArea == tabName){
+	      // do nothing
+	   } else {
+	      $('#' + currentEditArea).parent().removeClass('active');
+		  $('#' + currentEditArea + "Table").css("display","none");
+		  currentEditArea = tabName;
+		  $('#' + currentEditArea + "Table").css("display","inline");
+		  refreshTable();
+	   }
+   });
+}
+
+function entityChangeTrigger(){
+    $('.contentChange').click(function(){
+	    var operationId = $(this).attr('id');
+		var operationArray = operationId.split("_");
+		var editArea = operationArray[0];
+		var editId = operationArray[2];
+		var displayContent = $($(this).parent().parent().children(":first")[0]).text();
+
+		if(operationArray[1] == "edit"){
+
+		} else if (operationArray[1] == "remove"){
+		    $('#removeTitle').html("内容修改");
+			$('#removeContent').html("你确认要从列表中删除 【" + displayContent + "】 吗？");
+			$('#removeId').val(editId);
+			$('#dataRemoveArea').modal("show");
+		}
+	});
+}
+
+function removeConfirm(){
+    $('#confirmRemove').click(function(){
+	    var removeId = $('#removeId').val();
+		var removeUrl = "";
+		if (currentEditArea == "newsEdit"){
+		    removeUrl = "/travelToCanada/news/delete?id="+removeId;
+		} else if (currentEditArea == "webNodeEdit"){
+		    removeUrl = "/travelToCanada/webNodes/delete?id="+removeId;
+		} else if (currentEditArea =="pageContentEdit"){
+		    removeUrl = "/travelToCanada/pageModules/delete?id="+removeId;
+		}
+		$.ajax({
+		    url:removeUrl,
+			success:function(){
+			    alert("内容成功修改！");
+				$('#dataRemoveArea').modal('hide');
+				refreshTable();
+			},
+			error:function(){
+			    alert("内容修改失败！");
+				$('#dataRemoveArea').modal('hide');
+
+			}
+		});
+	});
+}
+
+function reloadClick(){
+    $("#reloadProject").click(function(){
+	    var reloadProjectUrl = "/travelToCanada/project/reload"
+		$.ajax({
+		    url:reloadProjectUrl,
+			success:function(){
+			    alert("网页生成成功啦！");
+			},
+			error:function(){
+			    alert("网页生成失败，请联系开发者！");
+
+			}
+		});
+	})
+}
 
 </script>
 </body>

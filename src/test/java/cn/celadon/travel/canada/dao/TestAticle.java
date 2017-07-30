@@ -1,15 +1,9 @@
 package cn.celadon.travel.canada.dao;
 
+import cn.celadon.travel.canada.service.Impl.WebNodeServiceImpl;
 import cn.celadon.travel.canada.web.NewsController;
-import cn.celadon.travel.canada.domin.Article;
-import cn.celadon.travel.canada.domin.ArticleTemplate;
-import cn.celadon.travel.canada.service.IArticleService;
-import com.fasterxml.jackson.core.JsonParseException;
+import cn.celadon.travel.canada.domin.dynamicDataModules.Article;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.Version;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.Template;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,12 +19,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.io.File;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by empqqty on 6/1/2017.
@@ -48,6 +37,9 @@ public class TestAticle {
     @Autowired
     NewsController newsController;
 
+    @Autowired
+    WebNodeServiceImpl webNodeService;
+
     @Before
     public void setUp() throws JsonProcessingException {
         mvc = MockMvcBuilders.webAppContextSetup(webApplicationConnect).build();
@@ -57,7 +49,6 @@ public class TestAticle {
     @Test
     public void testAddArticle(){
         Article example = new Article();
-        example.setArticleTemplate(ArticleTemplate.FULL_SIZE_IMAGE);
         example.setAuthor("Yi");
         example.setClickCount(5);
         example.setContent("wowowowowowowwwwwwwwwwwwwwww");
@@ -83,5 +74,9 @@ public class TestAticle {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void testUpdateArticle(){
+
     }
 }

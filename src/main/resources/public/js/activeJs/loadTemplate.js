@@ -1,15 +1,14 @@
-var header = '{"logo":"加拿大留学移民","nav":[{"item_id":1,"item_name":"首页","url":"index_ver1.html","item_type":"single","parent_item":0},{"item_id":4,"item_name":"企业理念","url":"second_level.html","item_type":"single","parent_item":2},{"item_id":5,"item_name":"企业资质","url":"second_level.html","item_type":"single","parent_item":2},{"item_id":6,"item_name":"企业文化","url":"second_level.html","item_type":"single","parent_item":2},{"item_id":2,"item_name":"公司简介","url":null,"item_type":"multiple","parent_item":0}]}'
 function loadHeader(elementId){
     var jsonObj = $.parseJSON(header);
     var headerBrandHtml = addHeaderBrand(jsonObj.logo);
-    var navBars = new Array();
+    // for this part, server side will directly generate List Object json data
     parseDataToNavObj(jsonObj.nav,navBars);
     var navBarsHtml = addNavigationBar(navBars);
     var finalHtml = '<nav class="navbar navbar-default" role="navigation">' + headerBrandHtml + navBarsHtml + '</nav>';
     $("#" + elementId).html(finalHtml);
-
-
 }
+
+var navBars = new Array();
 
 function parseDataToNavObj(navItemObj, firstLevelNavBars){
 
@@ -103,6 +102,41 @@ function addNavigationBar(navList){
     return navbarHtml;
 }
 
+function loadSubNav(subNavId){
+	var subNavHtml = addSubNav(navBars);
+	$("#" + subNavId).html(subNavHtml);
+
+}
+
+function addSubNav(navList){
+        var subNavHtml = "";
+		$.each(navList,function(){
+            if(this.subNav.length==0){
+				return true;
+			}
+			var subNavGroupFound = false;
+			$.each(this.subNav, function(){
+
+			    if (this.isActive == true){
+					subNavGroupFound = true;
+					subNavHtml = subNavHtml + '<li role="presentation" class="active">';
+				}else {
+					subNavHtml = subNavHtml + '<li role="presentation">';
+				}
+				subNavHtml = subNavHtml + '<a href="'+this.navUrl+'">' + this.navName + '</a>';
+
+			});
+
+			if (subNavGroupFound == false){
+			    subNavHtml = "";
+			} else {
+				return false;
+			}
+
+		});
+	   return subNavHtml;
+}
+
 function loadCopyright(copyrightId){
    var copyrightHtml = '<div class="container">' +
                     '<div class="row">' +
@@ -146,11 +180,3 @@ function loadFooter(footerId){
        '</div>';
    $("#" + footerId).html(footerHtml);
 }
-
-
-
-
-
-
-
-

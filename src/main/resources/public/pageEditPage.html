@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>加拿大留学移民后台管理</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/site.min.css" rel="stylesheet"/>
+    <link href="js/dataTable/css/jquery.dataTables.min.css" rel="stylesheet"/>
+    <style type="text/css">
+	      .index_content_title{
+		      border-bottom:2px solid #e5311a;
+			  padding:0 0 5px 6px;
+			  font-weight:bold;
+			  margin:10px 2px;
+		  }
+	      .highlight{
+              padding:2px 2px;
+			  border-radius:5px;
+			  transition-duration:0.3s;
+			  transition-property:box-shadow;
+			  transform:translateZ(0);
+		  }
+	      .highlight:hover{
+              box-shadow:0 0 8px rgba(0, 0, 0, 0.6);
+			  background:#F5F8FA;
+		  }
+
+		  .index_content li{
+		      color:#8e99a0;
+			  overflow:hidden;
+		  }
+
+		  .index_content ul{
+              list-style:none outside;
+			  text-decoration:none;
+			  padding:0px;
+		  }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <a class="navbar-brand" href="#">加拿大移民留学</a>
+        <p class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Admin</a></p>
+    </div>
+    <div class="row clearfix">
+        <div class="col-md-2 column">
+            <ul class="nav nav-pills nav-stacked">
+                <li role="presentation"><a href="system_manager.html">返回系统管理页面</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10 column">
+            <div id="pageContentEditArea" style="display:none">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">网页内容编辑</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="page_name" class="control-label">网页名称</label>
+                                    <input type="text" class="form-control" id="page_name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="page_link" class="control-label">网页链接名称（英文）</label>
+                                    <input type="text" class="form-control" id="page_link"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="template_type" class="control-label">模板类型</label>
+                                    <select type="text" class="form-control" id="template_type">
+                                        <option value="second_level.ftl">二级页面</option>
+                                        <option value="index.ftl">首页</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dynamic_module" class="control-label">动态模块 （请勿手动选择）:</label>
+                                    <select type="text" class="form-control" id="dynamic_module" multiple="multiple">
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="static_name" value="static_area" style="display: none;"/>
+                                </div>
+                                <div class="form-group">
+                                    <label for="static_content" class="control-label">静态内容:</label>
+                                    <textarea row="10" class="form-control ckeditor" id="static_content"></textarea>
+                                </div>
+                                <input type="reset" name="reset" style="display: none;" />
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="savePage">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+            <div id="newsEditArea" style="display:none">
+                <div class = "modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">新闻内容编辑</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form>
+                                <div class="form-group">
+                                    <label for="news_title" class="control-label">新闻标题:</label>
+                                    <input type="text" class="form-control" id="news_title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="news_author" class="control-label">发布者:</label>
+                                    <textarea class="form-control" id="news_author"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="news_introduction" class="control-label">引言/简介:</label>
+                                    <textarea class="form-control" id="news_introduction"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="news_content" class="control-label">内容:</label>
+                                    <textarea class="form-control ckeditor" id="news_content"></textarea>
+                                </div>
+                                <input type="reset" name="reset" style="display: none;" />
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="saveArticle">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+
+            <div id="schoolInfoEditArea" style="display:none">
+                <div class = "modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">加拿大大学信息编辑</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="myForm">
+                                <div class="form-group">
+                                    <label for="school_title" class="control-label">学校名称:</label>
+                                    <input type="text" class="form-control" id="school_title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="school_introduction" class="control-label">引言/简介:</label>
+                                    <textarea class="form-control" id="school_introduction"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="school_content" class="control-label">具体内容:</label>
+                                    <textarea class="form-control ckeditor" id="school_content"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="school_ranking" class="control-label">加拿大范围内排名:</label>
+                                    <input type="number" class="form-control" id="school_ranking" placeholder="请填入数字">
+                                </div>
+                                <input type="reset" name="reset" style="display: none;" />
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="saveSchool">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+
+            <div id="achievementEditArea" style="display:none">
+                <div class = "modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">成功案例编辑</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form id="myForm">
+                                <div class="form-group">
+                                    <label for="achievement_title" class="control-label">案例题目:</label>
+                                    <input type="text" class="form-control" id="achievement_title">
+                                </div>
+                                <div class="form-group">
+                                    <label for="achievement_introduction" class="control-label">引言/简介:</label>
+                                    <textarea class="form-control" id="achievement_introduction"></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="achievement_content" class="control-label">具体内容:</label>
+                                    <textarea class="form-control ckeditor" id="achievement_content"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="achievement_ba" class="control-label">案例类型:</label>
+                                    <select class="form-control" id = "achievement_ba">
+                                        <option value="移民">移民</option>
+                                        <option value="留学">留学</option>
+                                    </select>
+                                </div>
+                                <input type="reset" name="reset" style="display: none;" />
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" id="saveAchievement">Save changes</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
+    <script src="js/jquery.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/dataTable/js/jquery.dataTables.min.js"></script>
+    <script src="js/jquery.serializejson.min.js"></script>
+    <script src="js/ckeditor/ckeditor.js"></script>
+    <script>
+
+	var currentArea = GetQueryString('currentArea');
+
+	$(document).ready(function(){
+	   $('#' + currentArea + 'Area').css("display","block");
+       addDynamicModules();
+	   templateTypeChange();
+    });
+function GetQueryString(name)
+{
+     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+     var r = window.location.search.substr(1).match(reg);
+     if(r!=null)return  unescape(r[2]); return null;
+}
+$('#savePage').click(function(){
+    refreshCKEditor();
+    var newsData = {};
+	var paeInfo = {};
+	var dynamicMappings = new Array();
+	newsData["name"]=$("#page_name")[0].value;
+	newsData["staticContentMappingName"]=$("#static_name")[0].value;
+	newsData["staticContent"]=$("#static_content")[0].value;
+	paeInfo["pageDisplayName"]=$("#page_name")[0].value;
+	paeInfo["pageHtmlName"]=$("#page_link")[0].value;
+	paeInfo["pageTemplate"]=$("#template_type")[0].value;
+	newsData["pageInfo"]=paeInfo;
+	if ($("#dynamic_module").val() !=null && $("#dynamic_module").val().length > 0){
+	    var dynamic_index_array = $("#dynamic_module").val();
+	    $.each(dynamic_index_array, function(index){
+         var singleModule = {};
+	     singleModule["dynamicWebContent"] = dynamicModule[this];
+		 singleModule["innerAreaMappingName"] = dynamicModule[this].dynamicEntityMapping;
+		 singleModule["innerAreaMappingRecordNumber"] = 5;
+		 var innerAreaPage = {};
+		 innerAreaPage["pageDisplayName"] = dynamicModule[this].summaryPage.pageDisplayName;
+		 singleModule["innerAreaMappingArea"]=innerAreaPage;
+		 dynamicMappings[index] = singleModule;
+	    });
+	    newsData["dynamicWebContentMappingList"] = dynamicMappings;
+	}
+
+	var jsonStr = JSON.stringify(newsData);
+  $.ajax({
+	cache: true,
+	type: "POST",
+	contentType: "application/json",
+	url:"/travelToCanada/pageModules/add",
+	data:jsonStr,// 你的formid
+	async: false,
+	error: function(request) {
+		alert("添加失败了~");
+	},
+	success: function(data) {
+		alert(" 添加成功啦！ ");
+		//$('#webNodeEditArea').modal('hide');
+		//$("#webNodeEditArea input[type=reset]").trigger("click");
+		//refreshTable();
+
+	}
+  });
+});
+var dynamicModule;
+function addDynamicModules(){
+    $.get("/travelToCanada/dynamicModule/",function(data, status){
+	    dynamicModule = data;
+	    $.each(dynamicModule,function(index){
+
+        $('#dynamic_module').append("<option value='"+index+"'>"+this.summaryPage.pageDisplayName+"</option>");
+	    });
+	});
+
+}
+
+function refreshCKEditor(){
+    for ( instance in CKEDITOR.instances ) {
+        CKEDITOR.instances[instance].updateElement();
+    }
+}
+
+function templateTypeChange(){
+    $("#template_type").change(function(){
+	    var template = $("#template_type").val();
+		if (template == "index.ftl"){
+			$("#dynamic_module").find("option").attr("selected",true);
+		}
+	});
+}
+
+$('#saveArticle').click(function(){
+    refreshCKEditor();
+    var newsData = {};
+	newsData["title"]=$("#news_title")[0].value;
+	newsData["author"]=$("#news_author")[0].value;
+	newsData["content"]=$("#news_content")[0].value;
+	newsData["introduction"]=$("#news_introduction")[0].value;
+	var jsonStr = JSON.stringify(newsData);
+  $.ajax({
+	cache: true,
+	type: "POST",
+	contentType: "application/json",
+	url:"/travelToCanada/news/add",
+	data:jsonStr,// 你的formid
+	async: false,
+	error: function(request) {
+		alert("新闻添加失败!");
+	},
+	success: function(data) {
+		alert(" 添加成功啦！ ");
+
+	}
+  });
+});
+
+$('#saveSchool').click(function(){
+    refreshCKEditor();
+    var newsData = {};
+	newsData["title"]=$("#school_title")[0].value;
+	newsData["content"]=$("#school_content")[0].value;
+	newsData["introduction"]=$("#school_introduction")[0].value;
+	newsData["ranking"]=$("#school_ranking")[0].value;
+	var jsonStr = JSON.stringify(newsData);
+  $.ajax({
+	cache: true,
+	type: "POST",
+	contentType: "application/json",
+	url:"/travelToCanada/schoolInfo/add",
+	data:jsonStr,// 你的formid
+	async: false,
+	error: function(request) {
+		alert("学校信息添加失败!");
+	},
+	success: function(data) {
+		alert(" 学校信息添加成功啦！ ");
+
+	}
+  });
+});
+
+$('#saveAchievement').click(function(){
+    refreshCKEditor();
+    var newsData = {};
+	newsData["title"]=$("#achievement_title")[0].value;
+	newsData["content"]=$("#achievement_content")[0].value;
+	newsData["introduction"]=$("#achievement_introduction")[0].value;
+	newsData["businessArea"]=$("#achievement_ba")[0].value;
+	var jsonStr = JSON.stringify(newsData);
+  $.ajax({
+	cache: true,
+	type: "POST",
+	contentType: "application/json",
+	url:"/travelToCanada/achievement/add",
+	data:jsonStr,// 你的formid
+	async: false,
+	error: function(request) {
+		alert("成功案例添加失败!");
+	},
+	success: function(data) {
+		alert(" 成功案例添加成功啦！ ");
+
+	}
+  });
+});
+</script>
+</body>
+</html>

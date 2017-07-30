@@ -29,4 +29,9 @@ public class StaticPageGeneratorImpl implements IStaticPageGenerator {
     @Override
     public void generateListSummarySinglePage(String pageTemplate, List<Object> pageContent, String fileStoragePath) {
     }
+
+    @Override
+    public void generateJsFile(String pageTemplate, Object pageContent, String fileStoragePath) throws Exception {
+
+    }
 }

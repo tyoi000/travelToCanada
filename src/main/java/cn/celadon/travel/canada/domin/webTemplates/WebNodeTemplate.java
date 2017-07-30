@@ -1,13 +1,10 @@
 package cn.celadon.travel.canada.domin.webTemplates;
 
-import cn.celadon.travel.canada.domin.WebNode;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by empqqty on 6/18/2017.

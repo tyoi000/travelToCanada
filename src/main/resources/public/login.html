@@ -198,48 +198,74 @@ img { max-width: 100%; }
 </head>
 <body style="background:#f5f5f5 url(image/login_background.jpg) no-repeat;background-size:cover;">
 
-        <!-- Top content -->
-        <div class="top-content">
-        	
-            <div class="inner-bg">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-6 col-sm-offset-3 form-box">
-                        	<div class="form-top">
-                        		<div class="form-top-left">
-                        			<h3>Login to our site</h3>
-                            		<p>Enter your username and password to log on:</p>
-                        		</div>
-                        		<div class="form-top-right">
-                        			<i class="fa fa-key"></i>
-                        		</div>
-                            </div>
-                            <div class="form-bottom">
-			                    <form role="form" action="" method="post" class="login-form">
-			                    	<div class="form-group">
-			                    		<label class="sr-only" for="form-username">Username</label>
-			                        	<input name="form-username" placeholder="Username..." class="form-username form-control" id="form-username" type="text">
-			                        </div>
-			                        <div class="form-group">
-			                        	<label class="sr-only" for="form-password">Password</label>
-			                        	<input name="form-password" placeholder="Password..." class="form-password form-control" id="form-password" type="password">
-			                        </div>
-			                        <button type="submit" class="btn btn-primary">Sign in!</button>
-			                    </form>
-		                    </div>
+<!-- Top content -->
+<div class="top-content">
+
+    <div class="inner-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3 form-box">
+                    <div class="form-top">
+                        <div class="form-top-left">
+                            <h3>Login to our site</h3>
+                            <p>Enter your username and password to log on:</p>
                         </div>
+                        <div class="form-top-right">
+                            <i class="fa fa-key"></i>
+                        </div>
+                    </div>
+                    <div class="form-bottom">
+
+                        <div class="form-group">
+                            <label class="sr-only" for="form-username">用户名</label>
+                            <input name="form-username" placeholder="Username..." class="form-username form-control" id="form-username" type="text">
+                        </div>
+                        <div class="form-group">
+                            <label class="sr-only" for="form-password">密码</label>
+                            <input name="form-password" placeholder="Password..." class="form-password form-control" id="form-password" type="password">
+                        </div>
+                        <button id="login" class="btn btn-primary">登录</button>
                     </div>
                 </div>
             </div>
-            
         </div>
-        
-        <!--[if lt IE 10]>
-            <script src="assets/js/placeholder.js"></script>
-        <![endif]-->
+    </div>
+
+</div>
+
+<!--[if lt IE 10]>
+<script src="assets/js/placeholder.js"></script>
+<![endif]-->
 <!-- jQuery (Bootstrap 的 JavaScript 插件需要引入 jQuery) -->
 <script src="https://code.jquery.com/jquery.js"></script>
 <!-- 包括所有已编译的插件 -->
 <script src="js/bootstrap.min.js"></script>
+<script>
+   loginClick();
+   function loginClick(){
+        $("#login").click(function(){
+        var userName = $("#form-username").val();
+        var password = $("#form-password").val();
+        if (userName == ""){
+            alert("用户名不能为空！");
+            return;
+        } else if(password == ""){
+            alert("密码不能为空！");
+            return;
+        } else {
+            var loginUrl="/travelToCanada/loginSystem?userName=" + userName + "&password=" + password;
+		    $.ajax({
+		        url:loginUrl,
+			    success:function(){
+					window.location.href="/travelToCanada/system_manager.html";
+			    },
+			    error:function(){
+			        alert("登录失败！");
+			    }
+		    })
+	    }
+		});
+	}
+</script>
 </body>
 </html>

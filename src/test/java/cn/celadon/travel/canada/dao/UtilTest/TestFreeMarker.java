@@ -28,8 +28,15 @@ public class TestFreeMarker {
         Map root = new HashMap();
         root.put("name", "张三");
         root.put("address", "中国-北京");
-        Writer out = new OutputStreamWriter(new FileOutputStream(TestFreeMarker.this.getClass().getResource("/").getPath()+"lala.html"));
+        Writer out = new OutputStreamWriter(new FileOutputStream(TestFreeMarker.this.getClass().getResource("/").getPath()+"lala.js"));
         temp.process(root, out);
 
+    }
+
+    @Test
+    public void testMathMethod(){
+        int x=17;
+        int y=10;
+        System.out.println("Result is " + (int)Math.ceil((double)x/y));
     }
 }
