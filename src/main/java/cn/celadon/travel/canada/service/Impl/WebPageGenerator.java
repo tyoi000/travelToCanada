@@ -16,7 +16,7 @@ import cn.celadon.travel.canada.service.IWebPageGenerator;
 import cn.celadon.travel.canada.view.PageNavData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.apache.log4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -33,7 +33,7 @@ import java.util.*;
 @Service
 public class WebPageGenerator implements IWebPageGenerator {
 
-    protected static Logger logger = Logger.getLogger(WebPageGenerator.class);
+    protected static org.slf4j.Logger logger = LoggerFactory.getLogger(WebPageGenerator.class);
 
     private static String annotationClassName = "DynamicWebEntity";
     @Autowired

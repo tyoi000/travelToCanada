@@ -1,6 +1,7 @@
 function loadHeader(elementId){
     var jsonObj = $.parseJSON(header);
-    var headerBrandHtml = addHeaderBrand(jsonObj.logo);
+    //var headerBrandHtml = addHeaderBrand(jsonObj.logo);
+    var headerBrandHtml = addHeaderBrand("加拿大留学移民");
     // for this part, server side will directly generate List Object json data
     parseDataToNavObj(jsonObj.nav,navBars);
     var navBarsHtml = addNavigationBar(navBars);
